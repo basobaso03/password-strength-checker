@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Password Strength Checker</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="background-animation"></div>
+    
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <div class="header-content">
+                <h1>🔐 Password Strength Checker</h1>
+                <p class="subtitle">Evaluate your password security using entropy principles</p>
+                <div class="status-badge-container">
+                    <span id="api-status-badge" class="status-badge">Mode: Connecting...</span>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- Input Section -->
+            <section class="input-section">
+                <div class="input-group">
+                    <label for="password-input">Enter Password:</label>
+                    <div class="input-wrapper">
+                        <input 
+                            type="password" 
+                            id="password-input" 
+                            placeholder="Type your password here..." 
+                            class="password-input"
+                            autocomplete="off"
+                        >
+                        <button id="toggle-visibility" class="toggle-btn" title="Show/Hide password">
+                            👁️
+                        </button>
+                    </div>
+                    <small class="input-hint">Your password is analyzed locally and never sent to external servers</small>
+                </div>
+            </section>
+
+            <!-- Results Section -->
+            <section id="results-section" class="results-section" style="display: none;">
+                <!-- Strength Indicator -->
+                <div class="strength-indicator">
+                    <div class="strength-meter">
+                        <div id="strength-bar" class="strength-bar"></div>
+                    </div>
+                    <div class="strength-info">
+                        <span id="strength-level" class="strength-level"></span>
+                        <span id="strength-score" class="strength-score"></span>
+                    </div>
+                </div>
+
+                <!-- Main Feedback -->
+                <div class="feedback-box">
+                    <p id="feedback-text" class="feedback-text"></p>
+                </div>
+
+                <!-- Entropy Display -->
+                <div class="entropy-display">
+                    <div class="entropy-header">
+                        <strong>Shannon Entropy</strong>
+                        <span id="entropy-value" class="entropy-value">0.00</span>
+                    </div>
+                    <p class="entropy-explanation">
+                        Entropy measures the randomness of your password. Higher values (up to 100) indicate more unpredictable passwords.
+                    </p>
+                </div>
+
+                <!-- Criteria Checklist -->
+                <div class="criteria-section">
+                    <h3>Security Criteria</h3>
+                    <div id="criteria-list" class="criteria-list"></div>
+                </div>
+
+                <!-- Suggestions -->
+                <div id="suggestions-section" class="suggestions-section">
+                    <h3>💡 Suggestions for Improvement</h3>
+                    <ul id="suggestions-list" class="suggestions-list"></ul>
+                </div>
+
+                <!-- Copy Results Button -->
+                <button id="copy-results-btn" class="action-btn">📋 Copy Results</button>
+            </section>
+
+            <!-- Empty State -->
+            <section id="empty-state" class="empty-state">
+                <div class="empty-state-content">
+                    <p class="empty-state-icon">🔑</p>
+                    <p>Start typing a password to analyze its strength</p>
+                </div>
+            </section>
+
+            <!-- Security Tips Section -->
+            <section class="tips-section">
+                <h3>🛡️ Password Security Best Practices</h3>
+                <div class="tips-grid">
+                    <div class="tip-card">
+                        <h4>Use Variety</h4>
+                        <p>Combine uppercase, lowercase, numbers, and symbols for maximum complexity.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Avoid Patterns</h4>
+                        <p>Don't use sequential characters (abc, 123) or repeated characters (aaa, 111).</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Length Matters</h4>
+                        <p>Aim for at least 12 characters. Longer passwords are exponentially harder to crack.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Stay Unique</h4>
+                        <p>Use different passwords for different accounts. Never reuse critical passwords.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Avoid Dictionary Words</h4>
+                        <p>Don't use common words, names, or phrases that can be found in dictionaries.</p>
+                    </div>
+                    <div class="tip-card">
+                        <h4>Enable MFA</h4>
+                        <p>Multi-factor authentication adds an extra security layer beyond just passwords.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Information Section -->
+            <section class="info-section">
+                <h3>ℹ️ About This Tool</h3>
+                <div class="info-content">
+                    <p>
+                        This Password Strength Checker is built using <strong>entropy principles</strong> and <strong>security best practices</strong>. 
+                        It analyzes passwords against multiple criteria including:
+                    </p>
+                    <ul class="info-list">
+                        <li><strong>Length Analysis:</strong> Evaluates password length against security standards</li>
+                        <li><strong>Character Diversity:</strong> Checks for uppercase, lowercase, numbers, and symbols</li>
+                        <li><strong>Pattern Detection:</strong> Identifies sequential and repeated character patterns</li>
+                        <li><strong>Common Passwords:</strong> Compares against known weak password databases</li>
+                        <li><strong>Shannon Entropy:</strong> Measures randomness on a 0-100 scale</li>
+                    </ul>
+                </div>
+            </section>
+
+            <!-- API Documentation -->
+            <section class="api-section">
+                <h3>🔌 API Integration</h3>
+                <div class="api-content">
+                    <p><strong>Base URL:</strong> <code>http://localhost:5000</code></p>
+                    
+                    <div class="endpoint">
+                        <h4>POST /api/check</h4>
+                        <p>Check password strength</p>
+                        <pre><code>{
+  "password": "YourPassword123!@#"
+}</code></pre>
+                    </div>
+
+                    <div class="endpoint">
+                        <h4>GET /api/health</h4>
+                        <p>Health check endpoint</p>
+                    </div>
+
+                    <div class="endpoint">
+                        <h4>GET /api/info</h4>
+                        <p>Get API information and available criteria</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>Password Strength Checker v1.0 | Developed by Marlvin Basera</p>
+            <p class="footer-note">🔒 Your password is never stored or transmitted - all analysis happens locally in your browser</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
