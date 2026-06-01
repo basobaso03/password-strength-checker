@@ -8,6 +8,8 @@ A comprehensive, production-ready password strength analyzer built with a Python
 [![Testing](https://img.shields.io/badge/Tests-80%2B%20Passed-brightgreen.svg)](backend/tests/)
 [![Coverage](https://img.shields.io/badge/Coverage-92%25-brightgreen.svg)](backend/tests/)
 
+**[🚀 Live Demo](https://basobaso03.github.io/password-strength-checker/)**
+
 ---
 
 ## 📋 Table of Contents
@@ -298,6 +300,8 @@ Get API information and available criteria.
 ```
 Input Validation
        ↓
+Gatekeeper Check (< 8 chars = Weak, score 0)
+       ↓
 Password Analysis
        ├── Length Check
        ├── Character Type Check
@@ -315,9 +319,17 @@ JSON Response
 ```
 
 ### Strength Calculation Algorithm
+
+**Gatekeeper Rule (Applied First):**
+- **Passwords < 8 characters**: Automatically return **WEAK** with score 0
+  - No further scoring is performed
+  - Implements the "Zero Point Policy" from security principles
+  - Prevents exponential brute-force vulnerability
+
+**For Passwords ≥ 8 Characters:**
+
 1. **Base Score**: 0 points
 2. **Length Scoring** (+10-40 points):
-   - 6-7 chars: +10
    - 8+ chars: +20
    - 12+ chars: +10
    - 16+ chars: +10
